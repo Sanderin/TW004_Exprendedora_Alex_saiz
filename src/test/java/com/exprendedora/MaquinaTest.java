@@ -12,7 +12,7 @@ public class MaquinaTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Maquina m = new Maquina(0, 100, 100, null); // id, caja, cambios, refresco
+		Maquina m = new Maquina(0, 100, 100, null, 50); // id, caja, cambios, refresco
 	}
 
 	@After
@@ -22,7 +22,7 @@ public class MaquinaTest {
 	@Test
 	public void venderRefresco() {
 		Refresco r = new Refresco("coca cola", "cola", 2f, 30); // nombre, sabor, precio, cantidad
-		Maquina m = new Maquina(0, 100, 100, r);
+		Maquina m = new Maquina(0, 100, 100, r, 50);
 
 		float espero = 3;
 		float esperoCajaMaq = 102; // caja + ingreso - cambiosDevuelvo
@@ -42,14 +42,28 @@ public class MaquinaTest {
 	@Test
 	public void reponerRefresco() {
 		Refresco r = new Refresco("coca cola", "cola", 2f, 30);
-		Maquina m = new Maquina(0, 100, 100, r);
+		Maquina m = new Maquina(0, 100, 100, r, 50);
 
 		int esperoStock = 35;
 		int add = 5;
 
-		m.reponer(5);
+		m.reponer(add);
 		if (esperoStock != r.getStock()) {
 			fail("deberian quedar " + esperoStock);
+		}
+
+	}
+
+	@Test
+	public void ComprobarNoSePasaLimiteRefescos() {
+		Refresco r = new Refresco("coca cola", "cola", 2f, 30);
+		Maquina m = new Maquina(0, 100, 100, r, 50);
+
+		int add = 555;
+
+		m.reponer(add);
+		if (r.getStock() > 50) {
+			fail("el maximo es de " + m.getMaximo());
 		}
 
 	}

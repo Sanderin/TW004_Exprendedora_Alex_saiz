@@ -6,13 +6,24 @@ public class Maquina2 {
 	private float cambios = 0f;
 	private Refresco[] lista = new Refresco[5];
 	private int i;
+	private int maximo = 50;
 
-	public Maquina2(int id, float caja, float cambios, Refresco[] lista) {
+	public Maquina2(int id, float caja, float cambios, Refresco[] lista, int maximo) {
 		super();
 		this.id = id;
 		this.caja = caja;
 		this.cambios = cambios;
 		this.lista = lista;
+		this.maximo = maximo;
+	}
+
+	public void reponer(int add, int i) {
+		if (lista[i].getStock() + add <= maximo) {
+			int stock = lista[i].getStock();
+			lista[i].setStock(stock + add);
+		} else {
+			System.out.println("no entran tantos refrescos de " + lista[i].getNombre());
+		}
 	}
 
 	public float venta(float dineroIng, int i) {
@@ -49,11 +60,6 @@ public class Maquina2 {
 		return cambios;
 	}
 
-	public void reponer(int add, int i) {
-		int stock = lista[i].getStock();
-		lista[i].setStock(stock + add);
-	}
-
 	public String informe(int i) {
 		return "Maquina [id=" + id + ", caja=" + caja + ", refresco=" + lista[i] + "]";
 	}
@@ -82,4 +88,15 @@ public class Maquina2 {
 		this.caja = caja;
 	}
 
+	public int getMaximo() {
+		return maximo;
+	}
+
+	public void setMaximo(int maximo) {
+		this.maximo = maximo;
+	}
+
+	
+	
+	
 }// fin

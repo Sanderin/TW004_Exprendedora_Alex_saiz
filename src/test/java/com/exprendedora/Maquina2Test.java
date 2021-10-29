@@ -12,7 +12,7 @@ public class Maquina2Test {
 
 	@Before
 	public void setUp() throws Exception {
-		Maquina2 m = new Maquina2(0, 100, 100, null); // id, caja, cambios, refresco
+		Maquina2 m = new Maquina2(0, 100, 100, null, 50); // id, caja, cambios, refresco
 	}
 
 	@After
@@ -27,7 +27,7 @@ public class Maquina2Test {
 		lista[2] = new Refresco("nestea", "melocoton", 3, 20);
 		lista[3] = new Refresco("sprite", "limon", 2, 20);
 		lista[4] = new Refresco("coca cola", "cola", 2, 50);
-		Maquina2 m = new Maquina2(0, 100, 100, lista);
+		Maquina2 m = new Maquina2(0, 100, 100, lista, 50);
 
 		float espero = 3;
 		float esperoCajaMaq = 102; // caja + ingreso - cambiosDevuelvo
@@ -52,7 +52,7 @@ public class Maquina2Test {
 		lista[2] = new Refresco("nestea", "melocoton", 3, 20);
 		lista[3] = new Refresco("sprite", "limon", 2, 20);
 		lista[4] = new Refresco("coca cola", "cola", 2, 50);
-		Maquina2 m = new Maquina2(0, 100, 100, lista);
+		Maquina2 m = new Maquina2(0, 100, 100, lista, 50);
 
 		int esperoStock = 40;
 		int add = 5;
@@ -62,4 +62,24 @@ public class Maquina2Test {
 			fail("deberian quedar " + esperoStock);
 		}
 	}
+
+	@Test
+	public void ComprobarNoSePasaLimiteRefescos() {
+		
+		Refresco[] lista = new Refresco[5];
+		lista[0] = new Refresco("fanta", "naranja", 2, 20);
+		lista[1] = new Refresco("fanta", "limon", 3, 40);
+		lista[2] = new Refresco("nestea", "melocoton", 3, 20);
+		lista[3] = new Refresco("sprite", "limon", 2, 20);
+		lista[4] = new Refresco("coca cola", "cola", 2, 50);
+		
+		Maquina2 m = new Maquina2(0, 100, 100, lista, 50);
+		int add = 555;
+
+		m.reponer(add, 1);
+		if (lista[1].getStock() > 50) {
+			fail("el maximo es de " + m.getMaximo());
+		}
+	}
+
 }
