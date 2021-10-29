@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class MaquinaTest {
 
-	
-
 	@Before
 	public void setUp() throws Exception {
 		Maquina m = new Maquina(0, 100, 100, null); // id, caja, cambios, refresco
@@ -23,7 +21,7 @@ public class MaquinaTest {
 
 	@Test
 	public void venderRefresco() {
-		Refresco r = new Refresco("coca cola", "cola", 2f, 30);
+		Refresco r = new Refresco("coca cola", "cola", 2f, 30); // nombre, sabor, precio, cantidad
 		Maquina m = new Maquina(0, 100, 100, r);
 
 		float espero = 3;
@@ -37,8 +35,22 @@ public class MaquinaTest {
 		if (esperoCajaMaq != m.getCaja())
 			fail("La maquina debería tener 102€");
 
-		if (esperoStock != r.getStock()-1)
+		if (esperoStock != r.getStock() - 1)
 			fail("Deberia faltar 1");
+	}
+
+	@Test
+	public void reponerRefresco() {
+		Refresco r = new Refresco("coca cola", "cola", 2f, 30);
+		Maquina m = new Maquina(0, 100, 100, r);
+
+		int esperoStock = 35;
+		int add = 5;
+
+		m.reponer(5);
+		if (esperoStock != r.getStock()) {
+			fail("deberian quedar " + esperoStock);
+		}
 
 	}
 

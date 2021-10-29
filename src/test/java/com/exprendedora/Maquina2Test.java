@@ -40,9 +40,26 @@ public class Maquina2Test {
 		if (esperoCajaMaq != m.getCaja())
 			fail("La maquina debería tener 102€");
 
-		if (esperoStock != lista[3].getStock()-1)
+		if (esperoStock != lista[3].getStock() - 1)
 			fail("Deberia faltar 1");
-
 	}
 
+	@Test
+	public void reponerRefresco() {
+		Refresco[] lista = new Refresco[5];
+		lista[0] = new Refresco("fanta", "naranja", 2, 20);
+		lista[1] = new Refresco("fanta", "limon", 3, 40);
+		lista[2] = new Refresco("nestea", "melocoton", 3, 20);
+		lista[3] = new Refresco("sprite", "limon", 2, 20);
+		lista[4] = new Refresco("coca cola", "cola", 2, 50);
+		Maquina2 m = new Maquina2(0, 100, 100, lista);
+
+		int esperoStock = 40;
+		int add = 5;
+
+		m.reponer(5, 1);
+		if (esperoStock != lista[1].getStock()) {
+			fail("deberian quedar " + esperoStock);
+		}
+	}
 }
